@@ -38,3 +38,35 @@ Lezione* aggiungiLezione(Lezione* testa, int id, const char* nome, const char* g
 	return nuova;
 }
 
+/*Lezione* cercaLezione(Lezione* testa, int id)
+
+Specifica Sintattica:
+  cercaLezione(Lezione*, int) -> Lezione*
+
+Specifica Semantica:
+  cercaLezione(testa, id) -> nodo
+
+ Pre-condizioni:
+ - testa è un puntatore a una lista (anche vuota) di nodi di tipo Lezione.
+ - id è un valore intero valido.
+
+ Postcondizioni:
+ - Se esiste almeno un nodo nella lista con campo id uguale a id, la funzione restituisce il puntatore al primo nodo trovato.
+ - Se non esiste nessun nodo con id uguale a id, la funzione restituisce NULL.
+ - La lista non viene modificata dalla funzione.
+ */
+
+
+Lezione* cercaLezione(Lezione* testa, int id) {
+        Lezione* nodoCorrente = testa;
+        while (nodoCorrente != NULL) {
+                if (nodoCorrente->id == id) {
+                return nodoCorrente;
+                }
+        nodoCorrente = nodoCorrente->nodoNext;
+        }
+        return NULL;
+}
+
+
+
