@@ -153,3 +153,56 @@ Lezione* rimuoviLezione(Lezione* testa, int id) {
 	return testa;
 }
 
+/* int lezioneCompleta(Lezione* lezione)
+
+Specifica Sintattica:
+ lezioneCompleta(Lezione*) -> int
+
+Specifica Semantica:
+ lezioneCompleta(lezione) -> risultato
+
+Pre-condizioni:
+ - lezione è un puntatore a una struttura di tipo Lezione oppure NULL.
+ - Il campo maxPartecipanti deve contenere un valore intero positivo.
+ - Il campo partecipantiAttuali deve contenere un valore intero maggiore o uguale a 0.
+
+Post-condizioni:
+ - Se il puntatore lezione è NULL, la funzione restituisce 1 (considera la lezione come completa).
+ - Se partecipantiAttuali >= maxPartecipanti, la funzione restituisce 1.
+ - Altrimenti, la funzione restituisce 0.
+ - La funzione non modifica in alcun modo i dati della lezione (nessun side effect).
+ */
+
+int lezioneCompleta(Lezione* lezione) {
+	if (lezione == NULL) return 1; // trattata come piena se non esiste
+
+	return lezione->partecipantiAttuali >= lezione->maxPartecipanti;
+}
+
+
+/* void liberaLezioni(Lezione* testa)
+Specifica Sintattica:
+ liberaLezioni(Lezione*) -> void
+
+Specifica Semantica:
+ liberaLezioni(testa) → void
+
+Pre-condizioni:
+ - testa è un puntatore a una lista (anche vuota) di nodi di tipo Lezione.
+ - Ogni nodo della lista è stato precedentemente allocato dinamicamente (es. con malloc/calloc).
+
+Post-condizioni:
+ - Tutti i nodi della lista vengono deallocati.
+ - Non ci sono più riferimenti a memoria allocata dalla lista.
+ - La funzione non restituisce alcun valore (void).
+ - La funzione non modifica il valore del puntatore testa nel chiamante (passaggio per valore), ma la memoria a cui testa puntava viene liberata.
+ */
+
+void liberaLezioni(Lezione* testa) {
+	Lezione* temp;
+	while (testa != NULL) {
+		temp = testa;
+		testa = testa->nodoNext;
+		free(temp);
+	}
+}
