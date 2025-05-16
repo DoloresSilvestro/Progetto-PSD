@@ -70,3 +70,86 @@ Lezione* cercaLezione(Lezione* testa, int id) {
 
 
 
+/*void modificaLezione(Lezione* testa, int id, const char* nuovoNome, const char* nuovoGiorno, int nuovaDurata, int nuovoMaxPartecipanti)
+
+ Specifica Sintattica:
+ modificaLezione(Lezione*, int, const char*, const char*, int, int) -> void
+
+ Specifica Semantica:
+ modificaLezione(testa, id, nuovoNome, nuovoGiorno, nuovaDurata, nuovoMaxPartecipanti) -> void
+
+ Pre-condizioni:
+ - testa è un puntatore a una lista (anche vuota) di nodi di tipo Lezione.
+ - id è un valore intero che rappresenta l'identificatore della lezione da modificare.
+ - nuovoNome e nuovoGiorno sono stringhe valide terminate da '\0'.
+ - nuovaDurata e nuovoMaxPartecipanti sono valori interi positivi e coerenti.
+
+ Postcondizioni:
+ - Se esiste un nodo nella lista con campo id uguale a id, i suoi campi vengono aggiornati con i valori passati:
+ 	nome viene aggiornato con nuovoNome.
+ 	giorno viene aggiornato con nuovoGiorno.
+ 	durata viene aggiornato con nuovaDurata.
+ 	maxPartecipanti viene aggiornato con nuovoMaxPartecipanti.
+ - Se non esiste nessun nodo con id uguale a id, la funzione non modifica la lista.
+ - La funzione non restituisce alcun valore (void).
+ */
+
+void modificaLezione(Lezione* testa, int id, const char* nuovoNome, const char* nuovoGiorno, int nuovaDurata, int nuovoMaxPartecipanti) {
+	Lezione* modifica = cercaLezione(testa, id);
+	if (modifica == NULL) {
+		printf("Lezione con ID %d non trovata.\n", id);
+		return;
+	}
+
+	strncpy(modifica->nome, nuovoNome, sizeof(modifica->nome));
+	strncpy(modifica->giorno, nuovoGiorno, sizeof(modifica->giorno));
+	modifica->durata = nuovaDurata;
+	modifica->maxPartecipanti = nuovoMaxPartecipanti;
+
+	printf("Lezione con ID %d modificata correttamente.\n", id);
+}
+
+/* Lezione* rimuoviLezione(Lezione* testa, int id)
+
+Specifica Sintattica:
+ rimuoviLezione(Lezione*, int) -> Lezione*
+
+Specifica Semantica:
+ rimuoviLezione(testa, id) -> testa
+
+Pre-condizioni:
+ - testa è un puntatore a una lista (anche vuota) di nodi di tipo Lezione.
+ - id è un valore intero che rappresenta l'identificatore della lezione da rimuovere.
+
+Post-condizioni:
+ - Se esiste un nodo nella lista con campo id uguale a id, viene rimosso dalla lista e la memoria allocata per quel nodo viene liberata.
+ - Se il nodo rimosso era in testa, la funzione restituisce il puntatore al nuovo nodo di testa.
+ - Se il nodo rimosso era in mezzo o in fondo alla lista, la funzione collega correttamente i puntatori per mantenere la lista concatenata.
+ - Se non esiste nessun nodo con id uguale a id, la lista rimane invariata.
+ - La funzione restituisce il puntatore alla testa (aggiornata se necessario).
+ */
+
+Lezione* rimuoviLezione(Lezione* testa, int id) {
+	Lezione* nodoCorrente = testa;
+	Lezione* nodoPrecedente = NULL;
+
+	while (nodoCorrente != NULL) {
+		if (nodoCorrente->id == id) {
+			if (nodoPrecedente == NULL) {
+				testa = nodoCorrente->nodoNext;
+			} else {
+				nodoPrecedente->nodoNext = nodoCorrente->nodoNext;
+			}
+
+		free(nodoCorrente);
+		printf("Lezione con ID %d rimossa con successo.\n", id);
+		return testa;
+		}
+		nodoPrecedente = nodoCorrente;
+		nodoCorrente = nodoCorrente->nodoNext;
+	}
+
+	printf("Lezione con ID %d non trovata.\n", id);
+	return testa;
+}
+
