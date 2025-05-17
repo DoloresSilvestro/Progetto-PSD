@@ -114,7 +114,7 @@ Pre-condizioni:
 	-lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
 	-I campi codiceFiscale, tipo, dataInizio e dataFine di ciascun nodo sono inizializzati correttamente.
 
-Post-condizioni
+Post-condizioni:
 	-Per ogni nodo della lista, viene stampata a video una riga con le seguenti informazioni:
 		-Codice Fiscale.
 		-Tipo di abbonamento (come stringa "MENSILE" o "ANNUALE").
@@ -136,3 +136,120 @@ void stampaAbbonamenti(Abbonamento* lista) {
         nodoCorrente = nodoCorrente->nodoNext;
     }
 }
+
+/*void liberaAbbonamenti(Abbonamento* lista)
+Specifica Sintattica:
+	-liberaAbbonamenti(Abbonamento*) -> void
+
+Specifica Semantica:
+	liberaAbbonamenti(lista)
+
+Pre-condizioni:
+	-lista è un puntatore a una lista concatenata di nodi di tipo Abbonamento, oppure è NULL.
+	-I nodi della lista sono stati allocati dinamicamente.
+
+Post-condizioni:
+	-Tutti i nodi della lista sono stati deallocati con free.
+	-Non viene restituito alcun valore.
+	-Dopo l’esecuzione, eventuali variabili che puntavano alla lista dovranno essere impostate a NULL dal chiamante (non viene fatto automaticamente).
+*/
+
+void liberaAbbonamenti(Abbonamento* lista) {
+    Abbonamento* temp;
+    while (lista != NULL) {
+        temp = lista;
+        lista = lista->nodoNext;
+        free(temp);
+    }
+}
+
+/* int abbonamentoValido(Abbonamento* lista, const char* codiceFiscale, struct tm oggi)
+Spedcifica Sintattica:
+	  GNU nano 8.3                                                                                              abbonamenti.c                                                                                              Modified
+        -lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
+        -I campi codiceFiscale, tipo, dataInizio e dataFine di ciascun nodo sono inizializzati correttamente.
+
+Post-condizioni:
+        -Per ogni nodo della lista, viene stampata a video una riga con le seguenti informazioni:
+                -Codice Fiscale.
+                -Tipo di abbonamento (come stringa "MENSILE" o "ANNUALE").
+                -Data di inizio dell’abbonamento (formato gg/mm/aaaa).
+                -Data di fine dell’abbonamento (formato gg/mm/aaaa).
+        -Se la lista è vuota (NULL), la funzione non stampa nulla.
+        -La lista non viene modificata.*/
+
+void stampaAbbonamenti(Abbonamento* lista) {
+    Abbonamento* nodoCorrente = lista;
+    char* stampa[] = {"MENSILE", "ANNUALE"};
+
+    while (nodoCorrente != NULL) {
+        printf("CF: %s | Tipo: %s | Inizio: %02d/%02d/%04d | Fine: %02d/%02d/%04d\n",
+            nodoCorrente->codiceFiscale,
+            stampa[nodoCorrente->tipo],
+            nodoCorrente->dataInizio.tm_mday, nodoCorrente->dataInizio.tm_mon + 1, nodoCorrente->dataInizio.tm_year + 1900,
+            nodoCorrente->dataFine.tm_mday, nodoCorrente->dataFine.tm_mon + 1, nodoCorrente->dataFine.tm_year + 1900);
+        nodoCorrente = nodoCorrente->nodoNext;
+    }
+}
+
+/*void liberaAbbonamenti(Abbonamento* lista)
+Specifica Sintattica:
+        -liberaAbbonamenti(Abbonamento*) -> void
+
+Specifica Semantica:
+        liberaAbbonamenti(lista)
+
+Pre-condizioni:
+        -lista è un puntatore a una lista concatenata di nodi di tipo Abbonamento, oppure è NULL.
+        -I nodi della lista sono stati allocati dinamicamente.
+
+Post-condizioni:
+        -Tutti i nodi della lista sono stati deallocati con free.
+        -Non viene restituito alcun valore.
+        -Dopo l’esecuzione, eventuali variabili che puntavano alla lista dovranno essere impostate a NULL dal chiamante (non viene fatto automaticamente).
+*/
+
+void liberaAbbonamenti(Abbonamento* lista) {
+    Abbonamento* temp;
+    while (lista != NULL) {
+        temp = lista;
+        lista = lista->nodoNext;
+        free(temp);
+    }
+}
+
+/* int abbonamentoValido(Abbonamento* lista, const char* codiceFiscale, struct tm oggi)
+Spedcifica Sintattica:
+	abbonamentoValido(Abbonamento*, const char*, struct tm) -> int
+
+Specifica Semantica:
+	abbonamentoValido(lista, codiceFiscale, oggi) -> risultato
+
+Pre-condizioni:
+	-lista è un puntatore a una lista concatenata di nodi di tipo Abbonamento, oppure NULL.
+	-codiceFiscale è una stringa valida terminata da '\0'.
+	-oggi è una struttura struct tm che rappresenta una data valida.
+
+Post-condizioni:
+	-Se viene trovato un abbonamento con codice fiscale uguale a codiceFiscale, la funzione confronta la data di fine abbonamento con la data oggi:
+		-Se la data di fine è uguale o successiva a oggi, la funzione restituisce 1.
+		-Se la data di fine è precedente a oggi, la funzione restituisce 0.
+	-Se nessun abbonamento corrisponde al codiceFiscale, viene restituito 0.
+	-Nessuna modifica viene fatta alla lista o ai suoi elementi.
+*/
+
+int abbonamentoValido(Abbonamento* lista, const char* codiceFiscale, struct tm oggi) {
+    Abbonamento* nodoCorrente = lista;
+
+    while (nodoCorrente != NULL) {
+        if (strcmp(nodoCorrente->codiceFiscale, codiceFiscale) == 0) {
+            time_t fine = mktime(&nodoCorrente->dataFine);
+            time_t now = mktime(&oggi);
+            return difftime(fine, now) >= 0;
+        }
+        nodoCorrente = nodoCorrente->nodoNext;
+    }
+
+    return 0;
+}
+
