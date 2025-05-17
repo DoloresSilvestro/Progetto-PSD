@@ -1,10 +1,10 @@
 #include "abbonamenti.h"
 
-/*
+/* Abbonamento* aggiungiAbbonamento(Abbonamento* lista, const char* codiceFiscale, TipoAbbonamento tipo)
 Specifica Sintattica:
 	aggiungiAbbonamento(Abbonamento, const char, TipoAbbonamento) -> Abbonamento
 
-Specifica Semantica
+Specifica Semantica:
 	aggiungiAbbonamento(lista, codiceFiscale, tipo) -> nuova
 
 Pre-condizioni:
@@ -49,5 +49,57 @@ Abbonamento* aggiungiAbbonamento(Abbonamento* lista, const char* codiceFiscale, 
 
     printf("Abbonamento aggiunto correttamente per il CF: %s\n", codiceFiscale);
     return nuovo;
+}
+
+/*Abbonamento* modificaAbbonamento(Abbonamento* lista, const char* codiceFiscale, TipoAbbonamento nuovoTipo)
+Specifica Sintattica:
+	modificaAbbonamento(Abbonamento*, const char*, TipoAbbonamento) -> Abbonamento*
+
+Specifica Semantica:
+	modificaAbbonamento(lista, codiceFiscale, nuovoTipo) -> listaModificata
+
+Pre-condizioni
+	-lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
+	-codiceFiscale è una stringa valida terminata da '\0'.
+	-nuovoTipo è un valore valido di tipo TipoAbbonamento (MENSILE o ANNUALE).
+
+Post-condizioni
+	-Se esiste un nodo nella lista con codiceFiscale uguale al parametro passato:
+		-Il campo tipo di quel nodo viene aggiornato con nuovoTipo.
+		-Il campo dataFine viene ricalcolato a partire da dataInizio:
+			-Se nuovoTipo == MENSILE, viene incrementato di un mese.
+			-Se nuovoTipo == ANNUALE, viene incrementato di un anno.
+	-Viene aggiornato il campo dataFine tramite mktime.
+	-Viene stampato un messaggio di conferma.
+	-La funzione restituisce il puntatore alla testa della lista originale (lista).
+	-Se nessun nodo ha il codiceFiscale corrispondente:
+		-La lista resta invariata.
+		-Viene stampato un messaggio di errore.
+		-La funzione restituisce il puntatore alla testa della lista originale (lista).
+*/
+
+Abbonamento* modificaAbbonamento(Abbonamento* lista, const char* codiceFiscale, TipoAbbonamento nuovoTipo) {
+    Abbonamento* nodoCorrente = lista;
+
+    while (nodoCorrente != NULL) {
+        if (strcmp(nodoCorrente->codiceFiscale, codiceFiscale) == 0) {
+            nodoCorrente->tipo = nuovoTipo;
+            nodoCorrente->dataFine = nodoCorrente->dataInizio;
+
+            if (nuovoTipo == MENSILE) {
+                nodoCorrente->dataFine.tm_mon += 1;
+            } else if (nuovoTipo == ANNUALE) {
+                nodoCorrente->dataFine.tm_year += 1;
+            }
+            mktime(&nodoCorrente->dataFine);
+
+            printf("Abbonamento per CF %s modificato correttamente.\n", codiceFiscale);
+            return lista;
+        }
+        nodoCorrente = nodoCorrente->nodoNext;
+    }
+
+    printf("Nessun abbonamento trovato per CF: %s\n", codiceFiscale);
+    return lista;
 }
 
