@@ -58,12 +58,12 @@ Specifica Sintattica:
 Specifica Semantica:
 	modificaAbbonamento(lista, codiceFiscale, nuovoTipo) -> listaModificata
 
-Pre-condizioni
+Pre-condizioni:
 	-lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
 	-codiceFiscale è una stringa valida terminata da '\0'.
 	-nuovoTipo è un valore valido di tipo TipoAbbonamento (MENSILE o ANNUALE).
 
-Post-condizioni
+Post-condizioni:
 	-Se esiste un nodo nella lista con codiceFiscale uguale al parametro passato:
 		-Il campo tipo di quel nodo viene aggiornato con nuovoTipo.
 		-Il campo dataFine viene ricalcolato a partire da dataInizio:
@@ -103,3 +103,36 @@ Abbonamento* modificaAbbonamento(Abbonamento* lista, const char* codiceFiscale, 
     return lista;
 }
 
+/*void stampaAbbonamenti(Abbonamento* lista)
+Specifica Sintattica:
+	stampaAbbonamenti(Abbonamento*) -> void
+
+Specifica Semantica:
+	stampaAbbonamenti(lista) -> void
+
+Pre-condizioni:
+	-lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
+	-I campi codiceFiscale, tipo, dataInizio e dataFine di ciascun nodo sono inizializzati correttamente.
+
+Post-condizioni
+	-Per ogni nodo della lista, viene stampata a video una riga con le seguenti informazioni:
+		-Codice Fiscale.
+		-Tipo di abbonamento (come stringa "MENSILE" o "ANNUALE").
+		-Data di inizio dell’abbonamento (formato gg/mm/aaaa).
+		-Data di fine dell’abbonamento (formato gg/mm/aaaa).
+	-Se la lista è vuota (NULL), la funzione non stampa nulla.
+	-La lista non viene modificata.*/
+
+void stampaAbbonamenti(Abbonamento* lista) {
+    Abbonamento* nodoCorrente = lista;
+    char* stampa[] = {"MENSILE", "ANNUALE"};
+
+    while (nodoCorrente != NULL) {
+        printf("CF: %s | Tipo: %s | Inizio: %02d/%02d/%04d | Fine: %02d/%02d/%04d\n",
+            nodoCorrente->codiceFiscale,
+            stampa[nodoCorrente->tipo],
+            nodoCorrente->dataInizio.tm_mday, nodoCorrente->dataInizio.tm_mon + 1, nodoCorrente->dataInizio.tm_year + 1900,
+            nodoCorrente->dataFine.tm_mday, nodoCorrente->dataFine.tm_mon + 1, nodoCorrente->dataFine.tm_year + 1900);
+        nodoCorrente = nodoCorrente->nodoNext;
+    }
+}
