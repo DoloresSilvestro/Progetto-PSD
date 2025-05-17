@@ -108,7 +108,7 @@ Specifica Sintattica:
 	stampaAbbonamenti(Abbonamento*) -> void
 
 Specifica Semantica:
-	stampaAbbonamenti(lista) -> void
+	stampaAbbonamenti(lista)
 
 Pre-condizioni:
 	-lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
