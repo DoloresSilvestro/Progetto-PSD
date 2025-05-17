@@ -1,3 +1,12 @@
+/*
+La struttura Abbonamento rappresenta un singolo nodo della lista collegata contenente gli abbonamenti registrati nel sistema.
+Gli elementi principali sono:
+• codiceFiscale: stringa identificativa univoca del cliente a cui l’abbonamento è associato;
+• tipo: tipo di abbonamento sottoscritto (enum TipoAbbonamento);
+• dataInizio, dataFine: periodo di validità dell’abbonamento (struttura tm);
+• nodoNext: puntatore al nodo successivo della lista.
+*/
+
 #ifndef ABBONAMENTI_H
 #define ABBONAMENTI_H
 
