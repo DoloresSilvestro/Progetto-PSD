@@ -28,9 +28,13 @@ Lezione* aggiungiLezione(Lezione* testa, int id, const char* nome, const char* g
 		printf("Errore di allocazione\n");
 		return testa;
 		}
+
 	nuova->id = id;
-	strncpy(nuova->nome, nome, sizeof(nuova->nome));
-	strncpy(nuova->giorno, giorno, sizeof(nuova->giorno));
+	strncpy(nuova->nome, nome, sizeof(nuova->nome) - 1);
+    	nuova->nome[sizeof(nuova->nome) - 1] = '\0';
+    	strncpy(nuova->giorno, giorno, sizeof(nuova->giorno) - 1);
+    	nuova->giorno[sizeof(nuova->giorno) - 1] = '\0';
+
 	nuova->durata = durata;
 	nuova->maxPartecipanti = maxPartecipanti;
 	nuova->partecipantiAttuali = 0;
@@ -101,8 +105,11 @@ void modificaLezione(Lezione* testa, int id, const char* nuovoNome, const char* 
 		return;
 	}
 
-	strncpy(modifica->nome, nuovoNome, sizeof(modifica->nome));
-	strncpy(modifica->giorno, nuovoGiorno, sizeof(modifica->giorno));
+	strncpy(modifica->nome, nuovoNome, sizeof(modifica->nome) - 1);
+    	modifica->nome[sizeof(modifica->nome) - 1] = '\0';
+    	strncpy(modifica->giorno, nuovoGiorno, sizeof(modifica->giorno) - 1);
+    	modifica->giorno[sizeof(modifica->giorno) - 1] = '\0';
+
 	modifica->durata = nuovaDurata;
 	modifica->maxPartecipanti = nuovoMaxPartecipanti;
 
