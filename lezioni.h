@@ -1,5 +1,17 @@
-#ifndef LEZIONI_H
-#define LEZIONI_H
+/*
+La struttura Lezione rappresenta un singolo nodo della lista collegata contenente le lezioni disponibili nel sistema.
+Gli elementi principali sono:
+• id: identificativo univoco della lezione;
+• nome: nome della lezione;
+• giorno: giorno della settimana in cui si svolge la lezione;
+• durata: durata della lezione espressa in minuti;
+• maxPartecipanti: numero massimo di partecipanti ammessi;
+• partecipantiAttuali: numero attuale di iscritti alla lezione;
+• nodoNext: puntatore al nodo successivo della lista.
+*/
+
+
+#ifndef LEZIONI_H define LEZIONI_H
 
 #include <stdio.h>
 #include <stdlib.h>
