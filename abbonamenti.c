@@ -165,7 +165,6 @@ void liberaAbbonamenti(Abbonamento* lista) {
 
 /* int abbonamentoValido(Abbonamento* lista, const char* codiceFiscale, struct tm oggi)
 Spedcifica Sintattica:
-	  GNU nano 8.3                                                                                              abbonamenti.c                                                                                              Modified
         -lista è un puntatore a una lista concatenata di nodi Abbonamento (può essere anche NULL).
         -I campi codiceFiscale, tipo, dataInizio e dataFine di ciascun nodo sono inizializzati correttamente.
 
