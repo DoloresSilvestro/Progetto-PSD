@@ -30,6 +30,7 @@ typedef struct Abbonamento {
 } Abbonamento;
 
 Abbonamento* aggiungiAbbonamento(Abbonamento* lista, const char* codiceFiscale, TipoAbbonamento tipo);
+Abbonamento* cercaAbbonamento (Abbonamento* lista, const char* codiceFiscale, TipoAbbonamento tipo);
 Abbonamento* modificaAbbonamento(Abbonamento* lista, const char* codiceFiscale, TipoAbbonamento nuovoTipo);
 void stampaAbbonamenti(Abbonamento* lista);
 void liberaAbbonamenti(Abbonamento* lista);
