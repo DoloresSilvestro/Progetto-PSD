@@ -15,5 +15,6 @@ Cliente* cercaClienteElenco(elencoClienti* elenco, const char* codiceFiscale);
 int rimuoviClienteElenco(elencoClienti* elenco, const char* codiceFiscale);
 void stampaElencoClienti(elencoClienti* elenco);
 void liberaElencoClienti(elencoClienti* elenco);
+unsigned int calcolaHash(const char* codiceFiscale);
 
 #endif
