@@ -8,11 +8,9 @@ typedef struct Cliente {
     struct Cliente* nodoNext;
 } Cliente;
 
-Cliente* creaCliente(const char* codiceFiscale, const char* nuovoNome, const char* nuovoCognome);
 Cliente* creaCliente(const char* codiceFiscale, const char* nome, const char* cognome);
 void modificaCliente(Cliente* cliente, const char* nuovoNome, const char* nuovoCognome);
 void stampaCliente(Cliente* cliente);
 void liberaCliente(Cliente* cliente;
-
 
 #endif
