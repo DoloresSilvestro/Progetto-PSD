@@ -1,17 +1,15 @@
 /*
-La struttura Lezione rappresenta un singolo nodo della lista collegata contenente le lezioni disponibili nel sistema.
-Gli elementi principali sono:
-• id: identificativo univoco della lezione;
-• nome: nome della lezione;
-• giorno: giorno della settimana in cui si svolge la lezione;
-• durata: durata della lezione espressa in minuti;
-• maxPartecipanti: numero massimo di partecipanti ammessi;
-• partecipantiAttuali: numero attuale di iscritti alla lezione;
-• nodoNext: puntatore al nodo successivo della lista.
-*/
+ La struttura Lezione rappresenta un nodo della lista collegata delle lezioni disponibili.
+ Campi:
+ - nome: nome della lezione (es. "Zumba", "Yoga");
+ - dataOra: data e ora della lezione (usando struct tm di <time.h>);
+ - maxPartecipanti: numero massimo di persone che possono partecipare alla lezione;
+ - partecipantiAttuali: numero attuale di partecipanti iscritti;
+ - nodoNext: puntatore al nodo successivo nella lista.
+ */
 
-
-#ifndef LEZIONI_H define LEZIONI_H
+#ifndef LEZIONI_H
+#define LEZIONI_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,8 +24,9 @@ typedef struct Lezione {
 	struct Lezione* nodoNext;
 } Lezione;
 
-Lezione* aggiungiLezione(const char* nome, struct tm dataOra, int maxPartecipanti);
+Lezione* creaLezione(const char* nome, struct tm dataOra, int maxPartecipanti);
 void modificaLezione(Lezione* testa, const char* nuovoNome, struct tm* nuovoDataOra, int nuovoMaxPartecipanti);
 void liberaLezione(Lezione* testa);
 
 #endif
+
