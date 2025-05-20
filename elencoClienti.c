@@ -37,6 +37,7 @@ void inserisciClienteElenco(elencoClienti* elenco, Cliente* cliente) {
     unsigned int indice = calcolaHash(cliente->codiceFiscale, DIM_TABELLA);
     cliente->nodoNext = elenco->bucket[indice];
     elenco->bucket[indice] = cliente;
+    printf("Cliente %s aggiunto correttamente.\n", cliente->codiceFiscale);
 }
 /* Cliente* cercaClienteElenco(elencoClienti* elenco, const char* codiceFiscale)
 Specifica Sintattica: cercaClienteElenco(elencoClienti*, const char*) -> Cliente*
@@ -61,9 +62,10 @@ Cliente* cercaClienteElenco(elencoClienti* elenco, const char* codiceFiscale) {
     }
     unsigned int indice = calcolaHash(codiceFiscale, DIM_TABELLA);
     Cliente* corrente = elenco->bucket[indice];
-    while (corrente != NULL)
+    while (corrente != NULL){
         if (strcmp(corrente->codiceFiscale, codiceFiscale) == 0) {
-            return corrente;
+        printf("Cliente %s trovato correttamente. \n" , codiceFiscale);
+	return corrente;
         }
         corrente = corrente->nodoNext;
     }
@@ -101,6 +103,7 @@ int rimuoviClienteElenco(elencoClienti* elenco, const char* codiceFiscale) {
                 precedente->nodoNext = corrente->nodoNext;
             }
             free(corrente);
+	    printf(Cliente %s rimosso correttamente.\n", codiceFiscale);
             return 1;
         }
         precedente = corrente;
