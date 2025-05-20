@@ -18,7 +18,7 @@ Gli elementi principali sono:
 
 typedef enum {
     MENSILE,
-    ANNUALE
+    ANNUALE,
 } TipoAbbonamento;
 
 typedef struct Abbonamento {
